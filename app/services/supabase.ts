@@ -22,13 +22,18 @@ if (!EXPO_PUBLIC_SUPABASE_URL || !EXPO_PUBLIC_SUPABASE_ANON_KEY) {
 // Network timeout for Supabase requests (10 seconds)
 const NETWORK_TIMEOUT = 10000;
 
+// Check if we're in a browser environment
+const isBrowser = () => {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+};
+
 export const supabase = createClient<Database>(
   EXPO_PUBLIC_SUPABASE_URL || 'https://placeholder-url.supabase.co',
   EXPO_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key',
   {
     auth: {
-      persistSession: true,
-      autoRefreshToken: true,
+      persistSession: isBrowser(),
+      autoRefreshToken: isBrowser(),
       detectSessionInUrl: false,
     },
     global: {
