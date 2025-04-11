@@ -41,7 +41,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   web: {
     bundler: "metro",
     favicon: "./assets/images/favicon.png",
-    output: "single",
+    output: "static",
     build: {
       babel: {
         include: [
@@ -50,30 +50,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           "expo-modules-core"
         ]
       }
-    },
-    // Enhanced mobile web compatibility settings
-    meta: {
-      viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
-      "apple-mobile-web-app-capable": "yes",
-      "apple-mobile-web-app-status-bar-style": "black-translucent",
-      "theme-color": "#ffffff",
-      "mobile-web-app-capable": "yes"
-    },
-    // PWA configuration
-    templatePath: "./public/index.html",
-    name: "Kronos Planetary Rituals",
-    shortName: "Kronos",
-    lang: "en",
-    scope: "/",
-    themeColor: "#ffffff",
-    backgroundColor: "#ffffff",
-    startUrl: "/",
-    display: "standalone",
-    orientation: "portrait",
-    // Include service worker for offline capabilities
-    serviceWorker: {
-      src: "/service-worker.js",
-      scope: "/"
     }
   },
   plugins: [

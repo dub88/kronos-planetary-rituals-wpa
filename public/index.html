@@ -14,13 +14,13 @@
   <meta name="description" content="Kronos Planetary Rituals - Connect with planetary energies" />
   
   <!-- PWA Icons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/pwa/apple-touch-icon.png" />
-  <link rel="mask-icon" href="%PUBLIC_URL%/pwa/safari-pinned-tab.svg" color="#5bbad5" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5" />
   
   <!-- Web Manifest -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="manifest" href="/manifest.json" />
   
   <!-- Prevent text size adjustment on orientation change -->
   <style>
@@ -33,6 +33,13 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overscroll-behavior: none;
+      height: 100%;
+      overflow: hidden;
+    }
+    #root {
+      display: flex;
+      height: 100%;
+      flex: 1;
     }
     /* Add iOS home screen app styling */
     @media (display-mode: standalone) {
@@ -56,6 +63,6 @@
 <body>
   <div id="root"></div>
   <!-- Service Worker Registration -->
-  <script src="%PUBLIC_URL%/register-service-worker.js"></script>
+  <script src="/register-service-worker.js"></script>
 </body>
 </html>
