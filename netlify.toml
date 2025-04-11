@@ -1,5 +1,5 @@
 [build]
-  command = "expo export:web"
+  command = "expo export"
   publish = "dist/web"
   
 [build.environment]
@@ -11,7 +11,7 @@
   status = 200
 
 [dev]
-  command = "expo start --web"
+  command = "npx expo start --web"
   port = 19006
   targetPort = 19006
   framework = "expo"

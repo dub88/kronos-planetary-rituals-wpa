@@ -18,13 +18,13 @@ To test the mobile web app locally:
 
 ```bash
 # Install dependencies
-yarn install
+npm install
 
 # Start the web development server
-yarn start-web
+npx expo start --web
 
 # Or use the development version with more debugging
-yarn start-web-dev
+DEBUG=expo* npx expo start --web
 ```
 
 Then open your browser at http://localhost:19006
@@ -35,7 +35,7 @@ To build the app for production deployment:
 
 ```bash
 # Build the web version
-expo export:web
+npx expo export
 ```
 
 This will create a production-ready build in the `dist/web` directory.
@@ -62,7 +62,7 @@ Netlify will automatically build and deploy your site. Once deployed, you can se
 3. Import your repository
 4. Configure the project:
    - Framework Preset: Other
-   - Build Command: `expo export:web`
+   - Build Command: `npx expo export`
    - Output Directory: `dist/web`
 5. Click "Deploy"
 
@@ -72,7 +72,7 @@ Netlify will automatically build and deploy your site. Once deployed, you can se
 
 ```json
 "scripts": {
-  "deploy-gh-pages": "expo export:web && gh-pages -d dist/web"
+  "deploy-gh-pages": "npx expo export && gh-pages -d dist/web"
 },
 "devDependencies": {
   "gh-pages": "^6.0.0"
@@ -114,7 +114,7 @@ firebase init hosting
 4. Deploy to Firebase:
 
 ```bash
-expo export:web
+npx expo export
 firebase deploy --only hosting
 ```
 
