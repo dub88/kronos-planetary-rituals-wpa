@@ -105,8 +105,13 @@ export const calculatePlanetaryHours = async (
     console.log(`Day of week: ${DateTime.fromJSDate(date).weekdayLong} (${dayOfWeek})`);
     console.log(`Day ruling planet: ${rulingPlanet}`);
     
-    // Get the current time
-    const now = DateTime.fromJSDate(date).setZone(timezone);
+    // Get the ACTUAL current time (not the date passed in)
+    // This ensures the "now" indicator is always correct regardless of the selected date
+    const actualNow = DateTime.now().setZone(timezone);
+    console.log(`Actual current time in ${timezone}: ${actualNow.toISO()}`);
+    
+    // Get the time from the passed date (for calculation purposes)
+    const dateTime = DateTime.fromJSDate(validDate).setZone(timezone);
     
     // Array to store the 24 planetary hours
     const planetaryHours: PlanetaryHour[] = [];
@@ -140,8 +145,10 @@ export const calculatePlanetaryHours = async (
       // Assign the planet using the Chaldean order, cycling through with modulo
       const planetName = chaldeanOrder[(startIndex + i) % 7] as PlanetDay;
       
-      // Check if this is the current hour
-      const isCurrentHour = now >= startTime && now < endTime;
+      // Check if this is the current hour - only mark as current if we're viewing today's date
+      // This prevents the "now" indicator from showing on past or future dates
+      const isToday = dateTime.hasSame(actualNow, 'day');
+      const isCurrentHour = isToday && (actualNow >= startTime && actualNow < endTime);
       
       // Add the hour to the array
       planetaryHours.push({

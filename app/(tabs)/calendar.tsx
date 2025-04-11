@@ -41,10 +41,18 @@ export default function CalendarScreen() {
         const longitude = location?.longitude || 0;
         console.log('Calendar: Using location:', { latitude, longitude, name: location?.name });
         
+        // Create a fresh date object for the selected date
         // Force date to noon to avoid timezone issues
+        const today = new Date();
         const dateAtNoon = new Date(selectedDate);
         dateAtNoon.setHours(12, 0, 0, 0);
+        
+        console.log('Calendar: Today is:', today.toISOString());
         console.log('Calendar: Calculating for date:', dateAtNoon.toISOString());
+        console.log('Calendar: Is selected date today?', 
+          dateAtNoon.getDate() === today.getDate() && 
+          dateAtNoon.getMonth() === today.getMonth() && 
+          dateAtNoon.getFullYear() === today.getFullYear());
         
         // Calculate planetary hours using the accurate implementation
         console.log('Calendar: Calling calculatePlanetaryHours...');
@@ -95,11 +103,25 @@ export default function CalendarScreen() {
   
   // Check if selected date is today
   const isToday = () => {
+    // Create fresh Date objects to ensure accurate comparison
     const today = new Date();
+    
+    // Compare year, month, and day only (not time)
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+    const todayDay = today.getDate();
+    
+    const selectedYear = selectedDate.getFullYear();
+    const selectedMonth = selectedDate.getMonth();
+    const selectedDay = selectedDate.getDate();
+    
+    console.log('Calendar: Today is', todayYear, todayMonth, todayDay);
+    console.log('Calendar: Selected date is', selectedYear, selectedMonth, selectedDay);
+    
     return (
-      selectedDate.getDate() === today.getDate() &&
-      selectedDate.getMonth() === today.getMonth() &&
-      selectedDate.getFullYear() === today.getFullYear()
+      selectedDay === todayDay &&
+      selectedMonth === todayMonth &&
+      selectedYear === todayYear
     );
   };
   
