@@ -15,6 +15,12 @@ import type {
 // Planetary types
 export type PlanetDay = 'sun' | 'moon' | 'mars' | 'mercury' | 'jupiter' | 'venus' | 'saturn';
 
+// Planet info interface for the planetDayMap
+export interface PlanetInfo {
+  name: string;
+  ruler: PlanetDay;
+}
+
 export interface PlanetaryHourBase {
   readonly planet: PlanetDay;
   readonly startTime: Date;

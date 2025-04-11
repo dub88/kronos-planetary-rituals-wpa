@@ -40,7 +40,7 @@
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
     "lucide-react-native": "^0.363.0",
-    "luxon": "^3.5.0",
+    "luxon": "^3.6.1",
     "nanoevents": "^9.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -52,6 +52,7 @@
     "react-native-svg": "^15.8.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6",
+    "suncalc": "^1.9.0",
     "sunrise-sunset-js": "^2.2.1",
     "uuid": "^11.1.0",
     "zustand": "^4.5.0"
