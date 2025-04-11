@@ -15,13 +15,39 @@ const AsyncStorageAdapter = {
   removeItem: (key: string) => AsyncStorage.removeItem(key),
 };
 
+// Check if we're in a browser environment where localStorage is available
+const isLocalStorageAvailable = () => {
+  try {
+    if (typeof localStorage === 'undefined') return false;
+    const testKey = '__supabase_ls_test__';
+    localStorage.setItem(testKey, 'test');
+    localStorage.removeItem(testKey);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+// Create a dummy storage for SSR environments
+const dummyStorage = {
+  getItem: () => Promise.resolve(null),
+  setItem: () => Promise.resolve(),
+  removeItem: () => Promise.resolve(),
+};
+
+// Determine which storage to use
+const getStorage = () => {
+  if (Platform.OS !== 'web') return AsyncStorageAdapter;
+  return isLocalStorageAvailable() ? localStorage : dummyStorage;
+};
+
 // Create the Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    storage: Platform.OS === 'web' ? localStorage : AsyncStorageAdapter,
+    storage: getStorage(),
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: Platform.OS === 'web',
+    detectSessionInUrl: Platform.OS === 'web' && isLocalStorageAvailable(),
   },
 });
 
