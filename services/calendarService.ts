@@ -98,7 +98,7 @@ export const addPlanetaryHourToCalendar = async (
     // Create event details
     const eventDetails = {
       title: `${planetaryHour.planet} Hour`,
-      notes: `This is a ${planetaryHour.planet.name} hour. Rituals and activities associated with ${planetaryHour.planet.name} are more effective during this time.`,
+      notes: `This is a ${planetaryHour.planet} hour. Rituals and activities associated with ${planetaryHour.planet} are more effective during this time.`,
       startDate,
       endDate,
       allDay: false,

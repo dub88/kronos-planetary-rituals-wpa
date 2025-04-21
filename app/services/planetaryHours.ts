@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { chaldeanOrder, planetaryDayRulers, planetarySymbols } from '../constants/planets';
-import type { PlanetDay, PlanetaryHour } from '../types';
+import type { PlanetName, PlanetaryHour } from '../app-types';
 // Import SunCalc with proper error handling
 let SunCalc: any;
 try {
@@ -59,7 +59,7 @@ export const calculatePlanetaryHours = async (
   try {
     // Get the day of the week (0 = Sunday, 6 = Saturday)
     const dayOfWeek = validDate.getDay();
-    const rulingPlanet = planetaryDayRulers[dayOfWeek] as PlanetDay;
+    const rulingPlanet = planetaryDayRulers[dayOfWeek] as PlanetName;
     const startIndex = chaldeanOrder.indexOf(rulingPlanet);
     
     console.log(`Day of week: ${dayOfWeek} (${DateTime.fromJSDate(validDate).weekdayLong})`);
@@ -118,9 +118,15 @@ export const calculatePlanetaryHours = async (
     const yesterday = today.minus({ days: 1 });
 
     const dayLabel = (date: DateTime): string => {
-      if (date.hasSame(today, 'day')) return 'today';
-      if (date.hasSame(tomorrow, 'day')) return 'tomorrow';
-      if (date.hasSame(yesterday, 'day')) return 'yesterday';
+      if (date.hasSame(today, 'day')) {
+        return 'today';
+      }
+      if (date.hasSame(tomorrow, 'day')) {
+        return 'tomorrow';
+      }
+      if (date.hasSame(yesterday, 'day')) {
+        return 'yesterday';
+      }
       return '';
     };
 
@@ -157,7 +163,7 @@ export const calculatePlanetaryHours = async (
       console.log(`Hour ${i + 1}: ${label}`);
       
       // Assign the planet using the Chaldean order, cycling through with modulo
-      const planetName = chaldeanOrder[(startIndex + i) % 7] as PlanetDay;
+      const planetName = chaldeanOrder[(startIndex + i) % 7] as PlanetName;
       
       // Check if this is the current hour - only mark as current if we're viewing today's date
       // This prevents the "now" indicator from showing on past or future dates
@@ -175,12 +181,11 @@ export const calculatePlanetaryHours = async (
       
       // Add the hour to the array
       planetaryHours.push({
-        hour: i + 1,
         hourNumber: i + 1,
         planet: planetName,
         planetId: planetName,
         period: isDayHour ? 'day' : 'night',
-        isDay: isDayHour,
+        isDayHour: isDayHour, 
         startTime: startTime.toJSDate(),
         endTime: endTime.toJSDate(),
         isCurrentHour,

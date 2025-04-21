@@ -13,10 +13,13 @@ export type DayDisplayName = 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Th
 // Planetary hour type
 export type PlanetaryHour = {
   planet: PlanetName;
+  planetId: PlanetName;
   startTime: Date;
   endTime: Date;
+  period: 'day' | 'night';
   isDayHour: boolean;
   hourNumber: number;
+  isCurrentHour: boolean;
   label?: string; // Optional label for today, tomorrow, yesterday
 };
 

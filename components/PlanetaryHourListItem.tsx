@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useTheme } from './ThemeProvider';
-import { PlanetaryHour } from '../types';
+import { PlanetaryHour } from '../app/app-types';
 import { formatHourTime } from '../utils/planetaryHours';
 import { getPlanetById } from '../constants/planets';
 
@@ -49,9 +49,16 @@ const PlanetaryHourListItem = ({ hour }: PlanetaryHourListItemProps) => {
           {planet?.name || hour.planet}
         </Text>
         
-        <Text style={[styles.timeText, { color: colors.textSecondary }]}>
-          {formatHourTime(hour.startTime)} - {formatHourTime(hour.endTime)}
-        </Text>
+        <View style={styles.timeRow}> 
+          <Text style={[styles.timeText, { color: colors.textSecondary }]}>
+            {formatHourTime(hour.startTime)} - {formatHourTime(hour.endTime)}
+          </Text>
+          {hour.label && (
+            <Text style={[styles.labelText, { color: colors.textSecondary }]}>
+              ({hour.label})
+            </Text>
+          )}
+        </View>
       </View>
       
       {hour.isCurrentHour && (
@@ -101,8 +108,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 2,
   },
+  timeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   timeText: {
     fontSize: 14,
+  },
+  labelText: {
+    fontSize: 12,
+    marginLeft: 4,
   },
   currentIndicator: {
     paddingHorizontal: 8,
