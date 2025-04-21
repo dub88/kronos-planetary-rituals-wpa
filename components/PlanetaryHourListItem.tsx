@@ -53,11 +53,6 @@ const PlanetaryHourListItem = ({ hour }: PlanetaryHourListItemProps) => {
           <Text style={[styles.timeText, { color: colors.textSecondary }]}>
             {formatHourTime(hour.startTime)} - {formatHourTime(hour.endTime)}
           </Text>
-          {hour.label && (
-            <Text style={[styles.labelText, { color: colors.textSecondary }]}>
-              ({hour.label})
-            </Text>
-          )}
         </View>
       </View>
       
