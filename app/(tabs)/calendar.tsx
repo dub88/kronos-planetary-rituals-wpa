@@ -181,18 +181,22 @@ export default function CalendarScreen() {
           <Text style={[styles.dateText, { color: colors.text }]}>
             {formatDate(selectedDate)}
           </Text>
-          {isToday() ? (
-            <View style={[styles.todayButton, { backgroundColor: colors.primary }]}>
-              <Text style={styles.todayButtonText}>Today</Text>
-            </View>
-          ) : (
-            <TouchableOpacity 
-              style={[styles.todayButton, { backgroundColor: colors.primary }]}
-              onPress={goToToday}
-            >
-              <Text style={styles.todayButtonText}>Today</Text>
-            </TouchableOpacity>
-          )}
+          {(() => {
+            // Use user's current local time as reference
+            const now = new Date('2025-04-21T17:23:05-06:00');
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const selected = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            const diffDays = Math.floor((selected.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+            let label = '';
+            if (diffDays === 0) label = 'Today';
+            else if (diffDays === 1) label = 'Tomorrow';
+            else if (diffDays === -1) label = 'Yesterday';
+            return label ? (
+              <View style={[styles.todayButton, { backgroundColor: colors.primary }]}>
+                <Text style={styles.todayButtonText}>{label}</Text>
+              </View>
+            ) : null;
+          })()}
         </View>
         
         <TouchableOpacity 
