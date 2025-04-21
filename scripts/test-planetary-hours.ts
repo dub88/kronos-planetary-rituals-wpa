@@ -40,7 +40,7 @@ async function testPlanetaryHours() {
     });
 
     // Find the current hour
-    const now = TODAY.getTime();
+    const now = DateTime.local().setZone(TIMEZONE).toJSDate().getTime();
     const currentHour = hours.find(
       (hour) => now >= hour.startTime.getTime() && now < hour.endTime.getTime()
     );

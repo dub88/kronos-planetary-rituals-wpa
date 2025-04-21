@@ -105,16 +105,9 @@ export const calculatePlanetaryHours = async (
     console.log(`Day of week: ${DateTime.fromJSDate(date).weekdayLong} (${dayOfWeek})`);
     console.log(`Day ruling planet: ${rulingPlanet}`);
     
-    // IMPORTANT: We're hardcoding the current time to 5:33pm on April 11, 2025
-    // This ensures the "now" indicator is always at the correct time
-    const hardcodedNow = DateTime.fromObject({
-      year: 2025,
-      month: 4,  // April (Luxon uses 1-indexed months)
-      day: 11,
-      hour: 17,  // 5pm
-      minute: 33 // 33 minutes
-    }).setZone(timezone);
-    console.log(`Hardcoded current time in ${timezone}: ${hardcodedNow.toISO()}`);
+    // Get the current time in the specified timezone
+    const hardcodedNow = DateTime.local().setZone(timezone);
+    console.log(`Current time in ${timezone}: ${hardcodedNow.toISO()}`);
     
     // Get the time from the passed date (for calculation purposes)
     const dateTime = DateTime.fromJSDate(validDate).setZone(timezone);
@@ -204,7 +197,7 @@ export const findCurrentPlanetaryHour = async (
     const validDate = date instanceof Date && !isNaN(date.getTime()) ? date : new Date();
     
     // Get the current time in the specified timezone
-    const now = DateTime.fromJSDate(validDate).setZone(timezone);
+    const now = DateTime.local().setZone(timezone);
     console.log(`Current time in ${timezone}: ${now.toISO()}`);
     console.log(`Current local time: ${DateTime.local().toISO()}`);
     console.log(`Timezone: ${timezone}`);
