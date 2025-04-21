@@ -10,7 +10,7 @@ import { calculatePlanetaryHours } from '../services/planetaryHours';
 import { getPlanetById } from '../../constants/planets';
 import PlanetaryHourListItem from '../../components/PlanetaryHourListItem';
 import LocationPrompt from '../../components/LocationPrompt';
-import { PlanetaryHour } from '../../types';
+import { PlanetaryHour } from '../app-types';
 
 export default function CalendarScreen() {
   const { colors } = useTheme();
@@ -64,7 +64,10 @@ export default function CalendarScreen() {
           latitude,
           longitude,
           dateAtNoon,
-          timezone
+          timezone,
+          6, // wakingHourStart
+          22, // wakingHourEnd
+          new Date('2025-04-21T17:10:18-06:00') // pass the actual current local time
         );
         
         console.log(`Calendar: Received ${hours.length} planetary hours`);
@@ -261,7 +264,7 @@ export default function CalendarScreen() {
                 </Text>
                 
                 {planetaryHours
-                  .filter(hour => hour.isDay)
+                  .filter(hour => hour.isDayHour)
                   .map((hour, index) => (
                     <PlanetaryHourListItem 
                       key={`day-${index}`} 
@@ -276,7 +279,7 @@ export default function CalendarScreen() {
                 </Text>
                 
                 {planetaryHours
-                  .filter(hour => !hour.isDay)
+                  .filter(hour => !hour.isDayHour)
                   .map((hour, index) => (
                     <PlanetaryHourListItem 
                       key={`night-${index}`} 

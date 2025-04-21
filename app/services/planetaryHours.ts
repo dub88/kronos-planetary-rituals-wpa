@@ -42,7 +42,8 @@ export const calculatePlanetaryHours = async (
   date: Date = new Date(),
   timezone: string = 'UTC',
   wakingHourStart: number = 6,  // Default waking hours start at 6 AM
-  wakingHourEnd: number = 22    // Default waking hours end at 10 PM
+  wakingHourEnd: number = 22,   // Default waking hours end at 10 PM
+  now: Date = new Date()        // NEW: reference date for 'today'
 ): Promise<PlanetaryHour[]> => {
   console.log(`Calculating planetary hours for ${DateTime.fromJSDate(date).toFormat('yyyy-MM-dd')} at ${latitude}, ${longitude}`);
   console.log(`Using timezone: ${timezone}`);
@@ -112,8 +113,9 @@ export const calculatePlanetaryHours = async (
     // Get the time from the passed date (for calculation purposes)
     const dateTime = DateTime.fromJSDate(validDate).setZone(timezone);
     
-    // Determine the label for each day
-    const today = DateTime.local().setZone(timezone).startOf('day');
+    // Determine the label for each day using the provided 'now' argument
+    const nowDateTime = DateTime.fromJSDate(now).setZone(timezone);
+    const today = nowDateTime.startOf('day');
     const tomorrow = today.plus({ days: 1 });
     const yesterday = today.minus({ days: 1 });
 
